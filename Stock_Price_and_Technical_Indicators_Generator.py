@@ -145,4 +145,7 @@ def get_stock_raw_data(stock_symbol, time_start, time_end):
     
     print(stock_symbol + ' done.')
 
+os.mkdir('Stock_price_only')
+os.mkdir('Stock_raw_data')
+
 get_stock_raw_data('000680.SZ', '2020-01-01', '2020-10-10')
