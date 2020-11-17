@@ -18,7 +18,7 @@ def get_time_stamp(date):
     return int(datetime.timestamp(datetime(int(date_split[0]), int(date_split[1]), int(date_split[2]))))
 
 
-def get_stock_raw_data(stock_symbol, time_start, time_end):
+def get_stock_raw_data(stock_symbol, time_start, time_end, indicator_time_start, indicator_time_end):
     time_start = get_time_stamp(time_start)
     time_end = get_time_stamp(time_end) + 86400
 
@@ -77,59 +77,59 @@ def get_stock_raw_data(stock_symbol, time_start, time_end):
 
     header = ['date', 'highest price', 'lowest price', 'close price', 'volumn']
 
-    # get 11 technical indicators from 6, 7, 8, ..., 10, 17 days ago 
+    # get 11 technical indicators from 'indicator_time_start' days ago to 'indicator_time_end' days ago 
     rsi = []
-    for i in range(6, 17):
+    for i in range(indicator_time_start, indicator_time_end):
         for_csv.append(list(talib.RSI(close_price_array, timeperiod=i)))
         header.append('RSI_' + str(i))
     
     cmo = []
-    for i in range(6, 17):
+    for i in range(indicator_time_start, indicator_time_end):
         for_csv.append(list(talib.CMO(close_price_array, timeperiod=i)))
         header.append('CMO_' + str(i))
         
     willR = []
-    for i in range(6, 17):
+    for i in range(indicator_time_start, indicator_time_end):
         for_csv.append(list(talib.WILLR(high_price_array, low_price_array, close_price_array, timeperiod=i)))
         header.append('WILLR_' + str(i))
         
     cci = []
-    for i in range(6, 17):
+    for i in range(indicator_time_start, indicator_time_end):
         for_csv.append(list(talib.CCI(high_price_array, low_price_array, close_price_array, timeperiod=i)))
         header.append('CCI_' + str(i))
         
     roc = []
-    for i in range(6, 17):
+    for i in range(indicator_time_start, indicator_time_end):
         for_csv.append(list(talib.ROC(close_price_array, timeperiod=i)))
         header.append('ROC_' + str(i))
         
     ppo = []
-    for i in range(6, 17):
+    for i in range(indicator_time_start, indicator_time_end):
         for_csv.append(list(talib.PPO(close_price_array, fastperiod=i, slowperiod=i+14, matype=0)))
         header.append('PPO_' + str(i))
         
     macd = []
-    for i in range(6, 17):
+    for i in range(indicator_time_start, indicator_time_end):
         for_csv.append(list(talib.MACD(close_price_array, fastperiod=12, slowperiod=26, signalperiod=i)[0]))
         header.append('MACD_' + str(i))
         
     ema = []
-    for i in range(6, 17):
+    for i in range(indicator_time_start, indicator_time_end):
         for_csv.append(list(talib.EMA(close_price_array, timeperiod=i)))
         header.append('EMA_' + str(i))
         
     tema = []
-    for i in range(6, 17):
+    for i in range(indicator_time_start, indicator_time_end):
         for_csv.append(list(talib.TEMA(close_price_array, timeperiod=i)))
         header.append('TEMA_' + str(i))
     
     wma = []
-    for i in range(6, 17):
+    for i in range(indicator_time_start, indicator_time_end):
         for_csv.append(list(talib.WMA(close_price_array, timeperiod=i)))
         header.append('WMA_' + str(i))
         
     sma = []
-    for i in range(6, 17):
+    for i in range(indicator_time_start, indicator_time_end):
         for_csv.append(list(talib.SMA(close_price_array, timeperiod=i)))
         header.append('SMA_' + str(i))
 
