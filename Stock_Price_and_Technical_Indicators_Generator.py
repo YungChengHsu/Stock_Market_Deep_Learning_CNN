@@ -19,10 +19,10 @@ def get_time_stamp(date):
 
 
 def get_stock_raw_data(stock_symbol, time_start, time_end, indicator_time_start, indicator_time_end):
-    time_start = get_time_stamp(time_start)
-    time_end = get_time_stamp(time_end) + 86400
+    time_start_processed = get_time_stamp(time_start)
+    time_end_processed = get_time_stamp(time_end) + 86400
 
-    url = 'https://query1.finance.yahoo.com/v7/finance/download/' + stock_symbol + '?period1=' + str(time_start) + '&period2=' + str(time_end) + '&interval=1d&events=history'
+    url = 'https://query1.finance.yahoo.com/v7/finance/download/' + stock_symbol + '?period1=' + str(time_start_processed) + '&period2=' + str(time_end_processed) + '&interval=1d&events=history'
     
     # Try 3 times for timeouts, and if timeout still happens after 3 attempts, print message of unsuccessfulness and return
     timeout_count = 0
@@ -136,7 +136,7 @@ def get_stock_raw_data(stock_symbol, time_start, time_end, indicator_time_start,
     # Transpose on all the data to have the form of 'a day per row'
     for_csv = list(np.array(for_csv).T)
 
-    with open('Stock_raw_data/' + stock_symbol + '_' + str(time_start) + '-' + str(time_end) + '.csv', 'w', newline='') as csv_file: # change file path name here
+    with open('Stock_raw_data/' + stock_symbol + '_' + time_start + '-' + time_end + '.csv', 'w', newline='') as csv_file: # change file path name here
         writer = csv.writer(csv_file)
         writer.writerow(header)
 
