@@ -148,4 +148,5 @@ def get_stock_raw_data(stock_symbol, time_start, time_end, indicator_time_start,
 os.mkdir('Stock_price_only')
 os.mkdir('Stock_raw_data')
 
+# Change the parameters below
 get_stock_raw_data('000680.SZ', '2020-01-01', '2020-10-10', 6, 17)
